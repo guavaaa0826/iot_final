@@ -1,4 +1,5 @@
-# iot_final
+# Internet of Things final project
+Group 1
 
 ## Smart Campus website
 To explore the Smart Campus platform, visit [Smart Campus](https://smart-campus.kits.tw/).
