@@ -1,17 +1,8 @@
-/* Reset some default styles */
-body, h1 {
+body {
     margin: 0;
     padding: 0;
-}
-
-/* Apply some basic styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-    text-align: center;
-}
-
-h1 {
-    color: #007BFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
