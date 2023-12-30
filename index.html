@@ -8,11 +8,62 @@
 </head>
 <body>
     <div id="root">
-        <div id="header">
-            <p>小吃部人流監測</p>
+        <div id="title">
+            <p class="header">小吃部人流監測</p>
         </div>
+        
         <div id="info">
-            <p></p>
+            <p class="text" id="info_text">推薦前往小吃部: 統計中</p>
+        </div>
+
+        <div class="container" id="us">
+            <div class="past_data">
+                <p class="text">超聲波歷史數據</p>
+                <div class="array">
+                    <div class="array_child" id="child_us1"></div>
+                    <div class="array_child" id="child_us2"></div>
+                    <div class="array_child" id="child_us3"></div>
+                    <div class="array_child" id="child_us4"></div>
+                    <div class="array_child" id="child_us5"></div>
+                    <div class="array_child" id="child_us6"></div>
+                    <div class="array_child" id="child_us7"></div>
+                    <div class="array_child" id="child_us8"></div>
+                    <div class="array_child" id="child_us9"></div>
+                    <div class="array_child" id="child_us10"></div>
+                </div>
+            </div>
+
+            <div class="cur_data">
+                <p class="text">超聲波實時數據</p>
+                <div class="bar">
+                    <div class="bar_fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="imu">
+            <div class="past_data">
+                <p class="text">三軸歷史數據</p>
+                <div class="array">
+                    <div class="array_child" id="child_imu1"></div>
+                    <div class="array_child" id="child_imu2"></div>
+                    <div class="array_child" id="child_imu3"></div>
+                    <div class="array_child" id="child_imu4"></div>
+                    <div class="array_child" id="child_imu5"></div>
+                    <div class="array_child" id="child_imu6"></div>
+                    <div class="array_child" id="child_imu7"></div>
+                    <div class="array_child" id="child_imu8"></div>
+                    <div class="array_child" id="child_imu9"></div>
+                    <div class="array_child" id="child_imu10"></div>
+                </div>
+            </div>
+
+            <div class="cur_data">
+                <p class="text">三軸實時數據</p>
+                <div class="bar">
+                    <div class="bar_fill"></div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script.js" defer></script>
