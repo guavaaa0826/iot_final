@@ -3,11 +3,12 @@ body {
 }
 
 #root {
+    background-color: aquamarine;
     height: 100vh;
     width: 100vw;
 }
 
-#header {
+#title {
     background-color: yellow;
     height: 100px;
     width: 100vw;
@@ -17,19 +18,90 @@ body {
     align-items: center;
     justify-content: center;
 }
-
-#header p {
-    font-size: 40px;
+.header {
+    font-size: 50px;
     font-family: Sans-serif;
     margin: 0;
 }
 
 #info {
-    background-color: aquamarine;
-    height: 200px;
-    width: 100vw;
+    background-color: red;
+    height: 100px;
+    width: 50vw;
     position: relative;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.text {
+    font-size: 20px;
+    font-family: Sans-serif;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+#info_text {
+    font-size: 30px;
+}
+
+.container {
+    height: 140px;
+    width: 75vw;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.past_data {
+    background-color: rebeccapurple;
+    height: 100%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.array {
+    border: 5px solid white;
+    height: 70%;
+    width: 90%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.array_child {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cur_data {
+    background-color: green;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.bar {
+    border: 5px solid white;
+    height: 50%;
+    width: 90%;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.bar_fill {
+    background-color: red;
+    height: 100%;
+    width: 0%;
+    transition: background-color 0.5s ease, width 0.5s ease;
+    overflow: hidden;
 }
