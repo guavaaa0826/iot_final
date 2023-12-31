@@ -1,35 +1,47 @@
 body {
+    background-image: url("restaurant.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
     margin: 0;
 }
 
 #root {
-    background-color: aquamarine;
-    height: 100vh;
-    width: 100vw;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 90vh;
+    width: 90vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 #title {
-    background-color: yellow;
-    height: 100px;
-    width: 100vw;
+    border: 5px solid #76453B;
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 80px;
+    width: 60%;
     position: relative;
-    top: 50px;
+    top: 25px;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .header {
     font-size: 50px;
-    font-family: Sans-serif;
+    font-family: 'Noto Serif TC', serif;
     margin: 0;
 }
 
 #info {
-    background-color: red;
-    height: 100px;
-    width: 50vw;
+    border: 5px solid #43766C;
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 65px;
+    width: 40%;
     position: relative;
-    margin-top: 50px;
+    margin-top: 35px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -37,10 +49,13 @@ body {
     justify-content: center;
 }
 .text {
-    font-size: 20px;
-    font-family: Sans-serif;
+    font-family: 'Noto Serif TC', serif;
     margin-left: 1em;
     margin-right: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 30px;
+    color: black;
 }
 #info_text {
     font-size: 30px;
@@ -50,6 +65,7 @@ body {
     height: 140px;
     width: 75vw;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     margin-top: 20px;
@@ -58,15 +74,16 @@ body {
 }
 
 .past_data {
-    background-color: rebeccapurple;
+    border: #B19470 5px solid;
+    background-color: rgba(255, 255, 255, 0.7);
     height: 100%;
-    width: 70%;
+    width: 65%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .array {
-    border: 5px solid white;
+    border: 3px solid black;
     height: 70%;
     width: 90%;
     margin-bottom: 20px;
@@ -84,7 +101,8 @@ body {
 }
 
 .cur_data {
-    background-color: green;
+    border: #C6A969 5px solid;
+    background-color: rgba(255, 255, 255, 0.7);
     height: 100%;
     width: 30%;
     display: flex;
@@ -92,7 +110,7 @@ body {
     align-items: center;
 }
 .bar {
-    border: 5px solid white;
+    border: 3px solid black;
     height: 50%;
     width: 90%;
     margin-top: 10px;
