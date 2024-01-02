@@ -1,6 +1,9 @@
 # Internet of Things final project
 Group 1
 
+## Pin configuration for connecting linit7697 with Sonic sensor and 9-axis accelerometer (IMU9DOF)
+
+
 ## Smart Campus website
 To explore the Smart Campus platform, visit [Smart Campus](https://smart-campus.kits.tw/).
 
