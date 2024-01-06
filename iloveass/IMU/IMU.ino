@@ -2,9 +2,6 @@
 #include <LWiFi.h>
 #include <PubSubClient.h>
 
-// Ultrasonic
-#include "Ultrasonic.h"
-
 // Grove IMU 9DOF
 #include "Wire.h"
 #include "I2Cdev.h"
@@ -12,10 +9,10 @@
 #include "BMP180.h"
 
 // WiFi credentials
+//char ssid[] = "林頎彧的wifi";
+//char password[] = "61467583";
 char ssid[] = "Jason";
 char password[] = "20040101";
-// char ssid[] = "林頎彧的iPad"
-//char password[] = "iloveass";
 
 // MQTT server details
 char mqtt_server[] = "mqtt-dev.kits.tw";
@@ -26,9 +23,6 @@ char client_Id[] = "linkit-7697";
 int status = WL_IDLE_STATUS;
 WiFiClient mtclient;
 PubSubClient client(mtclient);
-
-// Ultrasonic sensor instance
-Ultrasonic ultrasonic(2);
 
 // IMU 9DOF
 MPU9250 accelgyro;
@@ -100,36 +94,7 @@ void loop() {
     if (!client.connected()) {
         reconnect();
     }
-
-    // Measure distance with the Ultrasonic sensor
-    long RangeInCentimeters = ultrasonic.MeasureInCentimeters();
-    RangeInCentimeters *= 100;
-
-    // Convert distance to a hexadecimal string
-    char longtochar[5];
-    for (int i = 0; i < 4; i++) {
-        int tmp = RangeInCentimeters % 16;
-        if (tmp >= 10) {
-            longtochar[3 - i] = 'A' + (tmp - 10);
-        } else {
-            longtochar[3 - i] = '0' + tmp;
-        }
-        RangeInCentimeters /= 16;
-    }
-    longtochar[4] = '\0';
-
-    // Create JSON payload
-    char data[51];
-    sprintf(data, "[{\"macAddr\": \"0000000091499c95\",\"data\":\"0280%s\"}]", longtochar);
-
-    // Publish data every 0.5 seconds
-    delay(500);
-    byte* p = (byte*)malloc(sizeof(data));
-    memcpy(p, &data, sizeof(data));
-    client.publish(sub_topic, p, sizeof(data));
-    free(p);
-    client.loop();
-
+    
     getAccel_Data();
     getGyro_Data();
     getCompassDate_calibrated(); // compass data has been calibrated here
@@ -154,11 +119,28 @@ void loop() {
     sprintf(acc_data, "[{\"macAddr\": \"0000000091499c95\",\"data\":\"0271%s%s%s\"}]", char_x, char_y, char_z);
 
     // Publish data every 0.5 seconds
-    delay(500);
+    delay(250);
     byte* acc_p = (byte*)malloc(sizeof(acc_data));
     memcpy(acc_p, &acc_data, sizeof(acc_data));
     client.publish(sub_topic, acc_p, sizeof(acc_data));
     free(acc_p);
+    client.loop();
+
+    
+    float acc = sqrt(Axyz[0]*Axyz[0]+Axyz[1]*Axyz[1]+Axyz[2]*Axyz[2]);
+    Serial.print(acc);
+    char acc_char[5];
+    if (acc > 1.5) {
+        strcpy(acc_char, "acc1");
+    } else {
+        strcpy(acc_char, "acc0");
+    }
+    
+    delay(250);
+    byte* acc_p_2 = (byte*)malloc(sizeof(acc_char));
+    memcpy(acc_p_2, &acc_char, sizeof(acc_char));
+    client.publish(sub_topic, acc_p_2, sizeof(acc_char));
+    free(acc_p_2);
     client.loop();
 
 }
