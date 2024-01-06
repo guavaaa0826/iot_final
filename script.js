@@ -37,7 +37,7 @@ var token;
 const US_ID = "c365b1ae-18eb-4e1f-bf75-6bf5479194a9";
 const US_type = "DISTANCE";
 const US_queue = new Queue();
-const US_threshold = 100;
+const US_threshold = 150;
 
 const IMU_ID = "d1a95566-0f31-4093-a821-872e6735765a";
 const IMU_type = "ACCELERATION";
