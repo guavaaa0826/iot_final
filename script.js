@@ -42,7 +42,7 @@ const US_threshold = 150;
 const IMU_ID = "d1a95566-0f31-4093-a821-872e6735765a";
 const IMU_type = "ACCELERATION";
 const IMU_queue = new Queue();
-const IMU_threshold = 1.02;
+const IMU_threshold = 1.05;
 
 // Functions
 // Return the color according to the ratio.
