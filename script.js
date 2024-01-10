@@ -42,7 +42,7 @@ const US_threshold = 50;
 const IMU_ID = "d1a95566-0f31-4093-a821-872e6735765a";
 const IMU_type = "ACCELERATION";
 const IMU_queue = new Queue();
-const IMU_threshold = 1.5;
+const IMU_threshold = 1500;
 
 // Functions
 // Return the color according to the ratio.
@@ -74,9 +74,9 @@ function fillArray() {
     }
 }
 
-// Login to the samrt campus and get the token.
+// Login to the smart campus and get the token.
 function login() {
-    console.log("Enter login().")
+    console.log("Execute login().");
     const targetUrl = "https://smart-campus.kits.tw/api/api/account/login";
     const apiUrl = proxyUrl + targetUrl;
 
@@ -99,7 +99,6 @@ function login() {
         } else {
             var text = document.getElementById("info").querySelector("p");
             text.innerHTML = "請等待網頁獲取歷史資料。";
-            text.style.fontSize = "30px";
             website_enable = true;
         }
         return response.json();
@@ -109,6 +108,7 @@ function login() {
         console.log(`Token get: ${token}.`);
     })
     .then(() => {
+        // setTimeout(getPastData, 2000);
         getPastData();
     })
     .catch(error => {
@@ -119,10 +119,13 @@ function login() {
 // Fetching pass data
 function getPastData() {
     if (website_enable == false) {
+        console.log("Website unable. Fail to execute getPastData().");
         return;
     }
+    console.log("Execute getPastData().");
     // Parameters initialize
     var currentTimestamp = new Date().getTime();
+    var finish_fetching = 0;
     const header = {
         'Content-Type': 'application/json',
         'token': token,
@@ -131,7 +134,6 @@ function getPastData() {
 
     // Fetching pass data
     for (let i = -10; i < 0; i++) {
-        console.log(`Fetching past data ${i}.`)
         var lastTimestampStart = currentTimestamp + interval * i;
         var lastTimestampEnd = currentTimestamp + interval * (i + 1);
         const targetUrl_US = `https://smart-campus.kits.tw/api/api/sensors_in_timeinterval/${US_type}/${US_ID}/${lastTimestampStart}/${lastTimestampEnd}`;
@@ -165,6 +167,14 @@ function getPastData() {
                 US_queue.enqueue(0);
             }
         })
+        .then(() => {
+            finish_fetching += 1;
+            if (finish_fetching == 20) {
+                fillArray();
+                var text = document.getElementById("info").querySelector("p");
+                text.innerHTML = "小吃部人流: 統計中";
+            }
+        })
         .catch(error => {
             console.error("Error:", error);
         });
@@ -186,7 +196,7 @@ function getPastData() {
                 // Get current average value
                 var value_total = 0;
                 for (let i = 0; i < data.Count; i++) {
-                    value_total += (data.Items[i].value <= US_threshold) ? 1 : 0;
+                    value_total += (data.Items[i].value >= IMU_threshold) ? 1 : 0;
                 }
                 // Update .array
                 var IMU_ratio = value_total / data.Count;
@@ -196,8 +206,11 @@ function getPastData() {
             }
         })
         .then(() => {
-            if (i == -1) {
+            finish_fetching += 1;
+            if (finish_fetching == 20) {
                 fillArray();
+                var text = document.getElementById("info").querySelector("p");
+                text.innerHTML = "小吃部人流: 統計中";
             }
         })
         .catch(error => {
@@ -209,9 +222,10 @@ function getPastData() {
 // Fetch the data of US and IMU.
 function fetchData() {
     if (website_enable == false) {
+        console.log("Website unable. Fail to execute fetchData().");
         return;
     }
-    console.log("Executing fetchData().")
+    console.log("Execute fetchData().")
     
     var US_ratio = 0;
     var IMU_ratio = 0;
@@ -282,7 +296,7 @@ function fetchData() {
         if (data.Count != 0) {
             // Get current average value
             for (let i = 0; i < data.Count; i++) {
-                value_total += (data.Items[i].value <= US_threshold) ? 1 : 0;
+                value_total += (data.Items[i].value >= IMU_threshold) ? 1 : 0;
             }
             IMU_ratio = value_total / data.Count;
         } else {
@@ -307,9 +321,10 @@ function fetchData() {
     Promise.all([fetch_US, fetch_IMU])
     .then(() => {
         var text = document.getElementById("info").querySelector("p");
-        if (US_ratio <= 0.4 && IMU_ratio <= 0.4) {
+        var low_threshold = 0.4, medium_threshold = 0.7;
+        if (US_ratio <= low_threshold && IMU_ratio <= low_threshold) {
             text.innerHTML = "小吃部人流: 少";
-        } else if (US_ratio <= 0.7 && IMU_ratio <= 0.7) {
+        } else if (US_ratio <= medium_threshold && IMU_ratio <= medium_threshold) {
             text.innerHTML = "小吃部人流: 普通";
         } else {
             text.innerHTML = "小吃部人流: 多";
@@ -327,7 +342,3 @@ function initialize() {
 }
 
 document.addEventListener("DOMContentLoaded", initialize);
-
-// TODO:
-// 1. Determine the threshold value of US and IMU.
-// 2. Change the font of the hint texts in login().
